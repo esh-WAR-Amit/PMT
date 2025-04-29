@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const config = require('../config/config');
 const { getUserByEmail, getUserById } = require('../models/user');
-
-
+const pool = require('../database');
 
 router.post('/login', async (req, res) => {
   try {
@@ -82,6 +81,40 @@ router.post('/refresh', async (req, res) => {
   } catch (error) {
     console.error('Refresh token error:', error);
     res.status(401).json({ message: 'Invalid refresh token' });
+  }
+});
+
+router.post('/signup', async (req, res) => {
+  try {
+    const { name, password, email, gender } = req.body;
+
+    if (!name || !password || !email || !gender) {
+      return res.status(400).json({ message: 'Name, password, email, and gender are required' });
+    }
+
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      return res.status(409).json({ message: 'User already exists with this email' });
+    }
+
+    // Generate the profile picture URL based on gender
+    const profilePicUrl = gender.toLowerCase() === 'female'
+      ? `https://avatar.iran.liara.run/public/girl?username=${encodeURIComponent(name)}`
+      : `https://avatar.iran.liara.run/public/boy?username=${encodeURIComponent(name)}`;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = `
+      INSERT INTO users (name, password, email, gender, profilePicUrl)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id, name, email, profilePicUrl, gender, createdAt;
+    `;
+    const values = [name, hashedPassword, email, gender, profilePicUrl];
+    const result = await pool.query(query, values);
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Signup error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

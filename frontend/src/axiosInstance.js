@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.1.10:8000', // Replace with your backend URL
+  baseURL: 'http://localhost:8000', // Replace with your backend URL
   headers: {
     'Content-Type': 'application/json',
   },
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
 
         // Call the refresh endpoint to get a new access token
         const refreshResponse = await axios.post(
-          'http://192.168.1.10:8000/auth/refresh',
+          'http://localhost:8000/auth/refresh',
           { refreshToken }
         );
 

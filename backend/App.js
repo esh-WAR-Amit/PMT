@@ -10,6 +10,7 @@ const User = require('./models/user');
 const Project = require('./models/project');
 const Task = require('./models/task');
 const ProjectMember = require('./models/projectMember');
+const Organization = require('./models/organization');
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
@@ -49,12 +50,12 @@ app.use('/api', verifyToken, projectRoutes);
 app.use('/api', verifyToken, taskRoutes);
 app.use('/api', verifyToken, projectMemberRoutes);
 
-
 app.use('/auth', require('./routes/auth'));
 
 // Function to create tables
 const initializeTables = async () => {
     try {
+        await Organization.createTable();
         await User.createTable();
         await Project.createTable();
         await Task.createTable();
@@ -67,9 +68,8 @@ const initializeTables = async () => {
 
 
 initializeTables().then(() => {
-    app.listen(PORT, '0.0.0.0', () => { // '0.0.0.0' binds the server to all network interfaces
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server is running on http://localhost:${PORT}`);
-        console.log(`Accessible on your network at http://192.168.1.10:${PORT}`);
     });
 });
 
