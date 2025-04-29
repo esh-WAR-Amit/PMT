@@ -1,0 +1,84 @@
+.input:focus,
+.CreateNewProjectDescriptionInput:focus,
+.CreateNewProjectNameInput:focus {
+  border: 2px solid #ff8c00;
+}
+
+.CreateNewProjectDescriptionInput {
+  height: 12.9rem;
+}
+.CreateNewProjectDescriptionInputError {
+  height: 12.9rem;
+}
+
+.inputTask {
+  height: 4rem;
+  font-size: 1.5rem;
+  font-family: "Poppins";
+  color: #464646;
+  font-weight: 600;
+  border-bottom: 3px solid #464646;
+  border-top: none;
+  border-right: none;
+  border-left: 3px solid #464646;
+}
+.inputTaskError {
+  height: 4rem;
+  font-size: 1.5rem;
+  font-family: "Poppins";
+  font-weight: 500;
+  border-bottom: 3px solid #ae0000;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+.inputTask::placeholder {
+  font-family: "Poppins";
+}
+.inputTask:focus {
+  border: 4px solid #ff8c00;
+  border-top: none;
+  border-right: none;
+  border-left: 4px solid #ff8c00;
+  color: #ff8c00;
+}
+
+.wrapper:focus {
+  border: 2px solid #ff8c00;
+}
+
+.editTaskNameInput {
+  font-family: 'poppins';
+  font-weight: 600;
+  color: #1c7ed6;
+  letter-spacing: -2px;
+font-size: 32px;
+padding: 20px 0;
+}
+.editTaskNameInput:focus {
+  background-color:  #e7f5ff;
+}
+
+.editTaskDescriptionInput {
+  font-family: 'poppins';
+  font-weight: 500;
+  color: #1c7ed6;
+font-size: 16px;
+padding: 0 14px 15px 14px;
+height: 50rem;
+}
+.editTaskDescriptionInput:focus {
+  background-color:  #e7f5ff;
+}
+
+.editProjectDescriptionInput {
+  font-family: 'poppins';
+  font-weight: 500;
+  color: #1c7ed6;
+font-size: 16px;
+padding: 0 14px 15px 0;
+height: 50rem;
+}
+.editProjectDescriptionInput:focus {
+  background-color:  #e7f5ff;
+}
